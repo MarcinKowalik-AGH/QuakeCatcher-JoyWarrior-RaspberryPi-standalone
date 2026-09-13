@@ -1,0 +1,2 @@
+generated_utc,radioactive_timestamp_utc,radioactive_cpm,radioactive_uSv_h,radioactive_counter,radioactive_status,qcn_timestamp_utc,qcn_x,qcn_y,qcn_z,qcn_residual,qcn_event_active,qcn_trigger
+2026-09-13T14:26:39.238960Z,2026-09-13T14:26:29Z,20.9948,0.122633,1433,ok,2026-09-13T14:26:38.754400Z,8329,8115,12041,6.053,False,50.0

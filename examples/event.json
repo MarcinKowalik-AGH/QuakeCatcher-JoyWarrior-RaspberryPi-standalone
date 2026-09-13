@@ -1,0 +1,18 @@
+{
+  "author": "Marcin Kowalik",
+  "author_email": "mkowalik@agh.edu.pl",
+  "device": "Code Mercenaries JoyWarrior24F14",
+  "trigger_utc": "2026-09-13T12:57:36.530921Z",
+  "end_utc": "2026-09-13T12:58:38.127012Z",
+  "trigger_vector_counts": 1669.868666621333,
+  "threshold_vector_counts": 50.0,
+  "trigger_consecutive_samples": 3,
+  "pretrigger_seconds": 30.0,
+  "posttrigger_seconds": 60.0,
+  "samples_saved": 10744,
+  "compressed_bytes": 131075,
+  "sha256_csv_gz": "78d4141dbe2b7a62e065bb49b323405e4ff47965721a7b4b064a387322216862",
+  "verified_in_ram": true,
+  "storage_stage": "SD",
+  "status": "complete"
+}
