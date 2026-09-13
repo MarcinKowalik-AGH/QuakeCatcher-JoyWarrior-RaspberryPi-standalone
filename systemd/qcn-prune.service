@@ -1,0 +1,9 @@
+# Author: Marcin Kowalik <mkowalik@agh.edu.pl>
+[Unit]
+Description=Quake-Catcher event retention
+After=local-fs.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/qcn-recorder.conf
+ExecStart=/usr/local/sbin/qcn-prune

@@ -1,0 +1,36 @@
+{
+  "generated_utc": "2026-09-13T14:26:33.502757Z",
+  "hostname": "radioactive-quakecatcher",
+  "author": "Marcin Kowalik",
+  "email": "mkowalik@agh.edu.pl",
+  "radioactive": {
+    "available": true,
+    "timestamp_utc": "2026-09-13T14:26:29Z",
+    "timer_ms": 4555700,
+    "counter": 1433,
+    "delta_ms": 240060,
+    "delta_counts": 84,
+    "cpm": 20.9948,
+    "dose_uSv_h_est": 0.122633,
+    "revision": 769,
+    "device_id": 81327870,
+    "status": "ok"
+  },
+  "quakecatcher": {
+    "timestamp_utc": "2026-09-13T14:26:32.706460Z",
+    "device": "/dev/hidraw0",
+    "x": 8329,
+    "y": 8115,
+    "z": 12043,
+    "status": 0,
+    "event_active": false,
+    "event_stage": null,
+    "trigger_threshold_counts": 50.0,
+    "summary_pending_in_ram": 0,
+    "baseline_x": 8324.966,
+    "baseline_y": 8111.241,
+    "baseline_z": 12042.437,
+    "residual_vector_counts": 5.553,
+    "available": true
+  }
+}

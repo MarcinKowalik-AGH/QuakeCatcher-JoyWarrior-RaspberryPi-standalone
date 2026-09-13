@@ -1,0 +1,13 @@
+# Author: Marcin Kowalik <mkowalik@agh.edu.pl>
+/var/lib/qcn/summary.csv {
+    monthly
+    rotate 24
+    compress
+    missingok
+    notifempty
+    copytruncate
+    dateext
+    dateformat -%Y%m%d-%H%M%S
+    olddir /var/lib/qcn/archive
+    maxsize 5M
+}

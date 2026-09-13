@@ -1,0 +1,2 @@
+timestamp_utc,samples,duration_s,sample_hz,mean_x,mean_y,mean_z,centered_x,centered_y,centered_z,min_x,max_x,min_y,max_y,min_z,max_z,std_x,std_y,std_z,p2p_x,p2p_y,p2p_z,max_step,bad_reports
+2026-09-13T13:16:40.567218Z,6667,60.004,111.110,8325.250,8111.964,12042.116,133.250,-80.036,3850.116,8316,8337,8099,8123,12030,12056,2.874,2.933,3.499,21,24,26,7.616,0

@@ -1,0 +1,11 @@
+# Author: Marcin Kowalik <mkowalik@agh.edu.pl>
+[Unit]
+Description=Daily Quake-Catcher event cleanup
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+Unit=qcn-prune.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,100 @@
+#!/bin/bash
+# Quake-Catcher control/status helper
+# Author: Marcin Kowalik <mkowalik@agh.edu.pl>
+# SPDX-License-Identifier: MIT
+set -euo pipefail
+
+CONF=/etc/qcn-recorder.conf
+SERVICE=qcn-recorder.service
+
+need_root() {
+    if [ "${EUID:-$(id -u)}" -ne 0 ]; then
+        echo "Run through sudo." >&2
+        exit 1
+    fi
+}
+
+latest_meta() { ls -1t /var/lib/qcn/events/event-*.json 2>/dev/null | head -1 || true; }
+
+case "${1:-status}" in
+status)
+    echo "===== SERVICE ====="
+    systemctl --no-pager --full status "$SERVICE" || true
+    echo
+    echo "===== LIVE / RAM ====="
+    cat /run/qcn/latest.json 2>/dev/null || echo "no latest.json"
+    echo
+    echo "===== PENDING SUMMARY / RAM ====="
+    tail -5 /run/qcn/summary-live.csv 2>/dev/null || echo "no pending summary"
+    echo
+    echo "===== PERSISTENT SUMMARY / SD ====="
+    tail -5 /var/lib/qcn/summary.csv 2>/dev/null || echo "no summary.csv"
+    echo
+    echo "===== EVENTS / SD ====="
+    du -sh /var/lib/qcn/events 2>/dev/null || true
+    ls -1t /var/lib/qcn/events/event-*.json 2>/dev/null | head -5 || true
+    ;;
+live) cat /run/qcn/latest.json ;;
+events) ls -lht /var/lib/qcn/events/ ;;
+latest-event)
+    M=$(latest_meta); [[ -n "$M" ]] || { echo "No events"; exit 1; }; cat "$M"
+    ;;
+verify-latest)
+    M=$(latest_meta); [[ -n "$M" ]] || { echo "No events"; exit 1; }
+    C="${M%.json}.csv.gz"
+    echo "metadata: $M"; echo "payload: $C"
+    gzip -t "$C" && echo "GZIP: OK"
+    EXPECTED=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("sha256_csv_gz", ""))' "$M")
+    ACTUAL=$(sha256sum "$C" | awk '{print $1}')
+    echo "metadata SHA256: $EXPECTED"
+    echo "actual   SHA256: $ACTUAL"
+    [[ -z "$EXPECTED" || "$EXPECTED" == "$ACTUAL" ]] && echo "SHA256: OK" || { echo "SHA256: MISMATCH"; exit 2; }
+    ;;
+api)
+    if ! systemctl cat sensor-http-api.service >/dev/null 2>&1; then
+        echo "sensor-http-api.service is not installed (optional)."
+        exit 1
+    fi
+    systemctl --no-pager --full status sensor-http-api.service || true
+    echo
+    python3 - <<'PY'
+import json, urllib.request
+print(json.dumps(json.load(urllib.request.urlopen("http://127.0.0.1/qcn.json", timeout=3)), indent=2))
+PY
+    ;;
+storage)
+    du -sh /var/lib/qcn /var/lib/qcn/events 2>/dev/null || true
+    df -h /
+    ;;
+config) cat "$CONF" ;;
+threshold)
+    if [ $# -eq 1 ]; then grep '^QCN_TRIGGER_VECTOR=' "$CONF"; exit 0; fi
+    need_root
+    VALUE="$2"
+    case "$VALUE" in ''|*[!0-9.]* ) echo "Invalid threshold: $VALUE" >&2; exit 1;; esac
+    sed -i "s/^QCN_TRIGGER_VECTOR=.*/QCN_TRIGGER_VECTOR=$VALUE/" "$CONF"
+    systemctl restart "$SERVICE"
+    echo "QCN_TRIGGER_VECTOR=$VALUE set; service restarted."
+    ;;
+restart) need_root; systemctl restart "$SERVICE" ;;
+prune) need_root; systemctl start qcn-prune.service; journalctl -u qcn-prune.service -n 30 --no-pager ;;
+*)
+    cat <<'EOF'
+Quake-Catcher control — Marcin Kowalik <mkowalik@agh.edu.pl>
+
+Usage:
+  qcnctl status
+  qcnctl live
+  qcnctl events
+  qcnctl latest-event
+  qcnctl verify-latest
+  qcnctl api
+  qcnctl storage
+  qcnctl config
+  qcnctl threshold [value]
+  sudo qcnctl restart
+  sudo qcnctl prune
+EOF
+    exit 1
+    ;;
+esac

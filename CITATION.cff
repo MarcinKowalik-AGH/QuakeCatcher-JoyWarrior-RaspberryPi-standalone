@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Quake-Catcher JoyWarrior24F14 Raspberry Pi standalone RAM-first recorder"
+message: "If you use this preservation project, please cite it using the metadata below."
+type: software
+authors:
+  - family-names: Kowalik
+    given-names: Marcin
+    email: mkowalik@agh.edu.pl
+version: 1.1.0
+date-released: 2026-09-13
+repository-code: "https://github.com/MarcinKowalik-AGH/QuakeCatcher-JoyWarrior-RaspberryPi-standalone"
+license: MIT

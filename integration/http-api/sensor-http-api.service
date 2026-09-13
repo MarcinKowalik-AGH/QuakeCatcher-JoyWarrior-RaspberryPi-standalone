@@ -1,0 +1,23 @@
+# Shared sensor HTTP API
+# Author: Marcin Kowalik <mkowalik@agh.edu.pl>
+
+[Unit]
+Description=Radioactive and Quake-Catcher HTTP API
+After=network.target radioactive.service qcn-recorder.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+ExecStart=/usr/local/sbin/sensor-http-api
+Restart=on-failure
+RestartSec=5
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+
+[Install]
+WantedBy=multi-user.target

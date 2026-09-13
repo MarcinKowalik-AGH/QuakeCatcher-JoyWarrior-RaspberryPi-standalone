@@ -1,0 +1,6 @@
+Project: QuakeCatcher-JoyWarrior-RaspberryPi-standalone
+Version: 1.1.0
+Author: Marcin Kowalik
+E-mail: mkowalik@agh.edu.pl
+GitHub account: MarcinKowalik-AGH
+Validated: 2026-09-13
