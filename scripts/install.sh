@@ -81,6 +81,7 @@ journalctl -u qcn-prune.service -n 20 --no-pager || true
 
 echo
 echo "Installation complete."
+echo "Version: $PROJECT_VERSION"
 echo "Author: Marcin Kowalik <mkowalik@agh.edu.pl>"
 echo "Status: qcnctl status"
 echo "Backup: $BACKUP"
