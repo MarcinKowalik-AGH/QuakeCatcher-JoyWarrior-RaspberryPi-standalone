@@ -2,11 +2,11 @@
 
 Autor: **Marcin Kowalik <mkowalik@agh.edu.pl>**
 
-Opcjonalny moduł `integration/http-api` wystawia bieżące dane sensorów w JSON i CSV na porcie 80.
+Opcjonalny moduł `integration/http-api` wystawia dane sensorów jako JSON i CSV na TCP/80.
 
-Został zweryfikowany 13.09.2026 zarówno lokalnie na Raspberry Pi, jak i z klienta macOS w tej samej sieci LAN.
+**Aktualna wersja API: 1.1 — zweryfikowana 18.09.2026.**
 
-## Zweryfikowane adresy
+## Adresy
 
 ```text
 http://<ip-raspberry>/
@@ -19,8 +19,6 @@ http://<ip-raspberry>/qcn.csv
 http://<ip-raspberry>/qcn/event/latest.json
 ```
 
-Endpoint `/` zwraca zwykły tekst. Do integracji WWW zalecany jest JSON; CSV jest wygodny do prostych skryptów i arkuszy.
+Dla Radioactive@Home API 1.1 rozdziela bieżący stan recordera od wartości pomiarowej. Podczas `reset` lub `baseline` pola `cpm` i `dose_uSv_h_est` zachowują ostatnią prawidłową wartość, natomiast `status`, `current`, `measurement_timestamp_utc` oraz `using_last_valid` jednoznacznie pokazują jej pochodzenie. W razie potrzeby API szuka ostatniego prawidłowego pomiaru także w obróconych archiwach CSV.
 
-Serwer tylko odczytuje istniejące pliki sensorów. Nie tworzy osobnej bazy pomiarowej i nie loguje każdego zapytania.
-
-Instalacja i uwagi bezpieczeństwa: [`../../integration/http-api/README_PL.md`](../../integration/http-api/README_PL.md).
+Pełny opis: [`../../integration/http-api/README_PL.md`](../../integration/http-api/README_PL.md).

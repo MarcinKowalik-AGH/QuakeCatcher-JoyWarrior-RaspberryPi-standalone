@@ -2,6 +2,15 @@
 
 Author: **Marcin Kowalik <mkowalik@agh.edu.pl>**
 
+## 1.1.1 — 2026-09-18
+
+- Updated shared HTTP API to version 1.1.
+- Radioactive top-level CPM/dose keep the latest valid calculated value during reset/baseline rows while current status remains explicit.
+- Added `measurement_timestamp_utc`, `using_last_valid`, `current` and `latest_valid` provenance fields.
+- Added fallback to rotated `measurements.csv-*` archives.
+- Core QCN RAM-first acquisition/event pipeline is unchanged.
+
+
 ## 1.1.0 — 2026-09-13
 
 - Added optional shared read-only HTTP API on port 80 with JSON and CSV endpoints.

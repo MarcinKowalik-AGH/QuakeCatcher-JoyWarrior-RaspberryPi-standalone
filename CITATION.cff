@@ -6,7 +6,7 @@ authors:
   - family-names: Kowalik
     given-names: Marcin
     email: mkowalik@agh.edu.pl
-version: 1.1.0
-date-released: 2026-09-13
+version: 1.1.1
+date-released: 2026-09-18
 repository-code: "https://github.com/MarcinKowalik-AGH/QuakeCatcher-JoyWarrior-RaspberryPi-standalone"
 license: MIT
